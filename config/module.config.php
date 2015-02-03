@@ -13,8 +13,7 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
-                        '__NAMESPACE__' => 'KmbModuleManager\Controller',
-                        'controller' => 'Modules',
+                        'controller' => 'KmbModuleManager\Controller\Modules',
                         'envId' => '0',
                     ],
                 ],
@@ -29,8 +28,7 @@ return [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ],
                     'defaults' => [
-                        '__NAMESPACE__' => 'KmbModuleManager\Controller',
-                        'controller' => 'Module',
+                        'controller' => 'KmbModuleManager\Controller\Module',
                         'envId' => '0',
                     ],
                 ],
@@ -48,8 +46,8 @@ return [
     ],
     'controllers' => [
         'invokables' => [
-            'KmbModuleManager\Controller\Modules' => 'KmbModuleManager\Controller\Modules',
-            'KmbModuleManager\Controller\Module' => 'KmbModuleManager\Controller\Module',
+            'KmbModuleManager\Controller\Modules' => 'KmbModuleManager\Controller\ModulesController',
+            'KmbModuleManager\Controller\Module' => 'KmbModuleManager\Controller\ModuleController',
         ],
     ],
     'view_helper_config' => [
@@ -62,6 +60,9 @@ return [
         ],
     ],
     'view_manager' => [
+        'strategies' => [
+            'ViewJsonStrategy',
+        ],
         'template_path_stack' => [
             __DIR__ . '/../view',
         ],

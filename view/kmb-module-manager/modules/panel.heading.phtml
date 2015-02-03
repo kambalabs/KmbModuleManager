@@ -16,8 +16,16 @@
                         <p><?php echo $this->translate('You can add any released version or any branch of a module.') ?></p>
                     </blockquote>
                     <div class="form-group">
-                        <label for="create-group-name"><?php echo $this->translate('Choose a name') ?></label>
-                        <input type="text" class="form-control" name="name" id="create-group-name" />
+                        <label for="module"><?php echo $this->translate('Module') ?></label>
+                        <select id="module" data-placeholder="<?php echo $this->translate('Choose a module...') ?>" class="form-control" name="module" data-rel="chosen">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="version"><?php echo $this->translate('Version') ?></label>
+                        <select id="version" data-placeholder="<?php echo $this->translate('Select a version...') ?>" class="form-control" name="version" data-rel="chosen">
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

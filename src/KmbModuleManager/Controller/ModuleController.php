@@ -22,10 +22,12 @@ namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class ModuleController extends AbstractActionController implements AuthenticatedControllerInterface
 {
-    public function indexAction()
+    public function versionsAction()
     {
+        return new JsonModel();
     }
 }

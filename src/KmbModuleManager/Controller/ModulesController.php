@@ -21,11 +21,26 @@
 namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
+use KmbDomain\Model\EnvironmentInterface;
+use KmbPmProxy\Model\PuppetModule;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class ModulesController extends AbstractActionController implements AuthenticatedControllerInterface
 {
-    public function indexAction()
+    public function installableAction()
     {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+        /** @var PuppetModule[] $modules */
+        $modules = $this->getServiceLocator()->get('pmProxyPuppetModuleService')->getAllInstallableByEnvironment($environment);
+        $response = [];
+        foreach ($modules as $module) {
+            $response[$module->getName()] = $module->getAvailableVersions();
+        }
+        return new JsonModel($response);
     }
 }
