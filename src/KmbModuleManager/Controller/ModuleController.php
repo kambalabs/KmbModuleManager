@@ -21,6 +21,9 @@
 namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
+use KmbDomain\Model\EnvironmentInterface;
+use KmbPmProxy\Model\PuppetModule;
+use KmbPmProxy\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -28,6 +31,95 @@ class ModuleController extends AbstractActionController implements Authenticated
 {
     public function versionsAction()
     {
-        return new JsonModel();
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromRoute('name');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllAvailable();
+        if (!array_key_exists($moduleName, $modules)) {
+            return $this->notFoundAction();
+        }
+        /** @var PuppetModule $module */
+        $module = $modules[$moduleName];
+        return new JsonModel($module->getAvailableVersions());
+    }
+
+    public function updateAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromRoute('name');
+        $version = $this->params()->fromPost('version');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllAvailable();
+        if (!array_key_exists($moduleName, $modules)) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Unknown module %s !'), $moduleName));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+        }
+        /** @var PuppetModule $module */
+        $module = $modules[$moduleName];
+        if (!in_array($version, $module->getAvailableVersions())) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Version %s is not available for module %s !'), $version, $moduleName));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+        }
+
+        try {
+            $moduleService->installInEnvironment($environment, $module, $version);
+        } catch (\Exception $e) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+        }
+
+        $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s %s has been successfully installed !'), $moduleName, $version));
+        return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+    }
+
+    public function removeAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromRoute('name');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllInstalledByEnvironment($environment);
+        if (!array_key_exists($moduleName, $modules)) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Module %s is not installed in environment %s !'), $moduleName, $environment->getNormalizedName()));
+            return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+        }
+        /** @var PuppetModule $module */
+        $module = $modules[$moduleName];
+
+        try {
+            $moduleService->removeFromEnvironment($environment, $module);
+        } catch (\Exception $e) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module : %s'), $moduleName, $e->getMessage()));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+        }
+
+        $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s has been successfully remove !'), $moduleName));
+        return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
     }
 }

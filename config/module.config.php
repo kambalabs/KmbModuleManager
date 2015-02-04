@@ -57,6 +57,11 @@ return [
                     'kmb-module-manager/modules/panel.heading.phtml',
                 ],
             ],
+            'puppetModuleShowInfoBar' => [
+                'partials' => [
+                    'kmb-module-manager/module/info.bar.phtml',
+                ],
+            ],
         ],
     ],
     'view_manager' => [
