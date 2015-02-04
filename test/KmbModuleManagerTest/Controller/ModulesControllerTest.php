@@ -56,4 +56,13 @@ class ModulesControllerTest extends AbstractHttpControllerTestCase
             ]
         ], Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY));
     }
+
+    /** @test */
+    public function canInstallModule()
+    {
+        $this->dispatch('/env/1/module-manager/modules/install', 'POST', ['module' => 'apache', 'version' => '2.4.2']);
+
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirectTo('/env/1/puppet/modules');
+    }
 }

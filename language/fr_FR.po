@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-03 23:37+0100\n"
-"PO-Revision-Date: 2015-02-03 23:38+0100\n"
+"POT-Creation-Date: 2015-02-04 11:17+0100\n"
+"PO-Revision-Date: 2015-02-04 11:19+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -15,6 +15,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 "X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:65
+#, php-format
+msgid ""
+"Module %s cannot be installed in environment %s (already installed or "
+"unknown module) !"
+msgstr ""
+"Le module %s ne peut pas être installé dans l'environnement %s (module déjà "
+"installé ou inconnu) !"
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:71
+#, php-format
+msgid "Version %s is not available for module %s !"
+msgstr "La version %s n'est pas disponible pour le module %s !"
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:78
+#, php-format
+msgid "An error occured when installing module %s %s : %s"
+msgstr "Une erreur est survenue lors de l'installation du module %s %s : %s"
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:82
+#, php-format
+msgid "Module %s %s has been successfully installed !"
+msgstr "Le module %s %s a bien été installé !"
 
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:4
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:11

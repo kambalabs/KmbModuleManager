@@ -23,6 +23,7 @@ namespace KmbModuleManager\Controller;
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use KmbDomain\Model\EnvironmentInterface;
 use KmbPmProxy\Model\PuppetModule;
+use KmbPmProxy\Service;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
@@ -42,5 +43,43 @@ class ModulesController extends AbstractActionController implements Authenticate
             $response[$module->getName()] = $module->getAvailableVersions();
         }
         return new JsonModel($response);
+    }
+
+    public function installAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromPost('module');
+        $version = $this->params()->fromPost('version');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllInstallableByEnvironment($environment);
+        if (!array_key_exists($moduleName, $modules)) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Module %s cannot be installed in environment %s (already installed or unknown module) !'), $moduleName, $environment->getNormalizedName()));
+            return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+        }
+        /** @var PuppetModule $module */
+        $module = $modules[$moduleName];
+        if (!in_array($version, $module->getAvailableVersions())) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Version %s is not available for module %s !'), $version, $moduleName));
+            return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+        }
+
+        try {
+            $moduleService->installInEnvironment($environment, $module, $version);
+        } catch (\Exception $e) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
+            return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+        }
+
+        $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s %s has been successfully installed !'), $moduleName, $version));
+        return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
     }
 }

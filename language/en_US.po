@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-23 12:46+0100\n"
-"PO-Revision-Date: 2015-02-03 17:19+0100\n"
+"POT-Creation-Date: 2015-02-04 11:19+0100\n"
+"PO-Revision-Date: 2015-02-04 11:19+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: en_US\n"
@@ -16,6 +16,28 @@ msgstr ""
 "X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../src/KmbModuleManager/Controller/ModulesController.php:65
+#, php-format
+msgid ""
+"Module %s cannot be installed in environment %s (already installed or "
+"unknown module) !"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:71
+#, php-format
+msgid "Version %s is not available for module %s !"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:78
+#, php-format
+msgid "An error occured when installing module %s %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:82
+#, php-format
+msgid "Module %s %s has been successfully installed !"
+msgstr ""
+
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:4
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:11
 msgid "Add a module"
@@ -26,13 +48,25 @@ msgid "You can add any released version or any branch of a module."
 msgstr ""
 
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:19
-msgid "Choose a name"
+msgid "Module"
 msgstr ""
 
-#: ../view/kmb-module-manager/modules/panel.heading.phtml:24
-msgid "Cancel"
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:20
+msgid "Choose a module..."
 msgstr ""
 
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:25
+msgid "Version"
+msgstr ""
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:26
+msgid "Select a version..."
+msgstr ""
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:32
+msgid "Cancel"
+msgstr ""
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:33
 msgid "Save"
 msgstr ""
