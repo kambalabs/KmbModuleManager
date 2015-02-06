@@ -67,9 +67,9 @@ class ModuleController extends AbstractActionController implements Authenticated
         $version = $this->params()->fromPost('version');
 
         /** @var PuppetModule[] $modules */
-        $modules = $moduleService->getAllAvailable();
+        $modules = $moduleService->getAllInstalledByEnvironment($environment);
         if (!array_key_exists($moduleName, $modules)) {
-            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Unknown module %s !'), $moduleName));
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Module %s is unknown or not installed !'), $moduleName));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
         }
         /** @var PuppetModule $module */
