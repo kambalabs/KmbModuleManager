@@ -2,7 +2,7 @@
 <div class="col-md-2 info-bar pull-right">
     <div class="green">&nbsp;</div>
     <div class="update-btn">
-        <a class="btn btn-success disable" id="update" title="<?php echo $this->translate('Update the module') ?>" data-toggle="modal" data-target="#update-module" data-version-href="<?php echo $this->url('module-manager-module', ['action' => 'versions', 'name' => $this->module->getName()], [], true) ?>">
+        <a class="btn btn-success disabled" id="update" title="<?php echo $this->translate('Update the module') ?>" data-toggle="modal" data-target="#update-module" data-version-href="<?php echo $this->url('module-manager-module', ['action' => 'versions', 'name' => $this->module->getName()], [], true) ?>">
             <span class="glyphicon glyphicon-refresh"></span>
             <?php echo $this->translate('Update') ?>
         </a>
@@ -11,7 +11,7 @@
 <div class="col-md-2 info-bar pull-right">
     <div class="red">&nbsp;</div>
     <div class="remove-btn">
-        <a class="btn btn-danger disable" id="remove" href="#" title="<?php echo $this->translate('Remove the module') ?>" data-href="<?php echo $this->url('module-manager-module', ['action' => 'remove', 'name' => $this->module->getName()], [], true) ?>" data-toggle="modal" data-target="#confirm-remove" data-confirm-param1="<?php echo $this->module->getName() ?>" data-confirm-param2="<?php echo $this->environment->getNormalizedName() ?>">
+        <a class="btn btn-danger disabled" id="remove" href="#" title="<?php echo $this->translate('Remove the module') ?>" data-href="<?php echo $this->url('module-manager-module', ['action' => 'remove', 'name' => $this->module->getName()], [], true) ?>" data-toggle="modal" data-target="#confirm-remove" data-confirm-param1="<?php echo $this->module->getName() ?>" data-confirm-param2="<?php echo $this->environment->getNormalizedName() ?>">
             <span class="glyphicon glyphicon-remove-sign"></span>
             <?php echo $this->translate('Remove') ?>
         </a>
