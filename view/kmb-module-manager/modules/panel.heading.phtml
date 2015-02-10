@@ -1,7 +1,7 @@
 <?php $this->inlineScript()->prependFile($this->basePath() . '/js/kmb.mmgr.modules.js'); ?>
-<a class="btn btn-info btn-xs pull-right<?php if (!isset($this->puppetModules)): ?> disabled<?php endif ?>" data-toggle="modal" data-target="#add-module">
+<a class="btn btn-info btn-xs pull-right<?php if (!isset($this->puppetModules)): ?> disabled<?php endif ?>" title="<?php echo $this->translate('Add a module') ?>" data-toggle="modal" data-target="#add-module">
     <span class="glyphicon glyphicon-plus-sign"></span>
-    <?php echo $this->translate('Add a module') ?>
+    <?php echo $this->translate('Add') ?>
 </a>
 <div id="add-module" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addModuleLabel" aria-hidden="true">
     <div class="modal-dialog">
