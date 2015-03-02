@@ -39,8 +39,10 @@ class ModulesController extends AbstractActionController implements Authenticate
         /** @var PuppetModule[] $modules */
         $modules = $this->getServiceLocator()->get('pmProxyPuppetModuleService')->getAllInstallableByEnvironment($environment);
         $response = [];
-        foreach ($modules as $module) {
-            $response[$module->getName()] = $module->getAvailableVersions();
+        if (!empty($modules)) {
+            foreach ($modules as $module) {
+                $response[$module->getName()] = $module->getAvailableVersions();
+            }
         }
         return new JsonModel($response);
     }
