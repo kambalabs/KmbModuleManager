@@ -26,4 +26,8 @@ $(window).load(function () {
         });
         select.trigger('chosen:updated');
     });
+
+    $('#add-module-form').submit(function() {
+        $(".modal :submit").prop('disabled', true);
+    });
 });

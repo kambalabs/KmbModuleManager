@@ -24,7 +24,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h1 class="modal-title" id="updateModuleLabel"><?php echo $this->translate('Update the module') ?></h1>
             </div>
-            <form role="form" action="<?php echo $this->url('module-manager-modules', ['action' => 'install'], [], true) ?>" method="post">
+            <form role="form" id="update-module-form" action="<?php echo $this->url('module-manager-module', ['action' => 'update', 'name' => $this->module->getName()], [], true) ?>" method="post">
                 <div class="modal-body">
                     <blockquote style="margin-top: 16px">
                         <p><?php echo $this->translate('You can update the module with any available branch or released version.') ?></p>
@@ -59,7 +59,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('Cancel') ?></button>
-                <a href="#" class="btn btn-danger danger"><?php echo $this->translate('Remove') ?></a>
+                <a id='confirm-remove' href="#" class="btn btn-danger danger"><?php echo $this->translate('Remove') ?></a>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) 2014 Orange Applications for Business
+ * @copyright Copyright (c) 2014, 2015 Orange Applications for Business
  * @link      http://github.com/kambalabs for the sources repositories
  *
  * This file is part of Kamba.
@@ -73,13 +73,15 @@ class ModuleController extends AbstractActionController implements Authenticated
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
         }
         /** @var PuppetModule $module */
-        $module = $modules[$moduleName];
+        $module_list = $moduleService->getAllAvailable();
+        $module = $module_list[$moduleName];
         if (!in_array($version, $module->getAvailableVersions())) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Version %s is not available for module %s !'), $version, $moduleName));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
         }
 
         try {
+            $moduleService->removeFromEnvironment($environment, $module);
             $moduleService->installInEnvironment($environment, $module, $version);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
