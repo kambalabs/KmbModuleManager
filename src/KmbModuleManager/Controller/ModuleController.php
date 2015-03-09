@@ -54,6 +54,7 @@ class ModuleController extends AbstractActionController implements Authenticated
 
     public function updateAction()
     {
+        $back = $this->params()->fromQuery('back');
         /** @var EnvironmentInterface $environment */
         $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
         if ($environment == null) {
@@ -70,14 +71,14 @@ class ModuleController extends AbstractActionController implements Authenticated
         $modules = $moduleService->getAllInstalledByEnvironment($environment);
         if (!array_key_exists($moduleName, $modules)) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Module %s is unknown or not installed !'), $moduleName));
-            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $back ]], true);
         }
         /** @var PuppetModule $module */
         $module_list = $moduleService->getAllAvailable();
         $module = $module_list[$moduleName];
         if (!in_array($version, $module->getAvailableVersions())) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('Version %s is not available for module %s !'), $version, $moduleName));
-            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $back ]], true);
         }
 
         try {
@@ -85,11 +86,11 @@ class ModuleController extends AbstractActionController implements Authenticated
             $moduleService->installInEnvironment($environment, $module, $version);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
-            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $back ]], true);
         }
 
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s %s has been successfully installed !'), $moduleName, $version));
-        return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+        return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $back ]], true);
     }
 
     public function removeAction()
@@ -118,7 +119,7 @@ class ModuleController extends AbstractActionController implements Authenticated
             $moduleService->removeFromEnvironment($environment, $module);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module : %s'), $moduleName, $e->getMessage()));
-            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show'], ['name' => $moduleName], true);
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $this->params()->fromQuery('back') ]], true);
         }
 
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s has been successfully remove !'), $moduleName));
