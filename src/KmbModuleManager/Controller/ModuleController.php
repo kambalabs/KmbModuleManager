@@ -66,6 +66,7 @@ class ModuleController extends AbstractActionController implements Authenticated
 
         $moduleName = $this->params()->fromRoute('name');
         $version = $this->params()->fromPost('version');
+        $force = $this->params()->fromPost('force_action');
 
         /** @var PuppetModule[] $modules */
         $modules = $moduleService->getAllInstalledByEnvironment($environment);
@@ -82,8 +83,7 @@ class ModuleController extends AbstractActionController implements Authenticated
         }
 
         try {
-            $moduleService->removeFromEnvironment($environment, $module);
-            $moduleService->installInEnvironment($environment, $module, $version);
+            $moduleService->upgradeModuleInEnvironment($environment, $module, $version, $force);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $back ]], true);
