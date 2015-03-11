@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-04 16:32+0100\n"
-"PO-Revision-Date: 2015-02-04 16:32+0100\n"
+"POT-Creation-Date: 2015-03-11 17:16+0100\n"
+"PO-Revision-Date: 2015-03-11 17:16+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -16,45 +16,45 @@ msgstr ""
 "X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:54
+#: ../src/KmbModuleManager/Controller/ModuleController.php:73
 #, php-format
-msgid "Unknown module %s !"
-msgstr "Module %s inconnu !"
+msgid "Module %s is unknown or not installed !"
+msgstr "Le module %s est inconnu ou n'est pas installé !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:60
-#: ../src/KmbModuleManager/Controller/ModulesController.php:71
+#: ../src/KmbModuleManager/Controller/ModuleController.php:80
+#: ../src/KmbModuleManager/Controller/ModulesController.php:73
 #, php-format
 msgid "Version %s is not available for module %s !"
 msgstr "La version %s n'est pas disponible pour le module %s !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:67
-#: ../src/KmbModuleManager/Controller/ModulesController.php:78
+#: ../src/KmbModuleManager/Controller/ModuleController.php:88
+#: ../src/KmbModuleManager/Controller/ModulesController.php:80
 #, php-format
 msgid "An error occured when installing module %s %s : %s"
 msgstr "Une erreur est survenue lors de l'installation du module %s %s : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:71
-#: ../src/KmbModuleManager/Controller/ModulesController.php:82
+#: ../src/KmbModuleManager/Controller/ModuleController.php:92
+#: ../src/KmbModuleManager/Controller/ModulesController.php:84
 #, php-format
 msgid "Module %s %s has been successfully installed !"
 msgstr "Le module %s %s a bien été installé !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:91
+#: ../src/KmbModuleManager/Controller/ModuleController.php:112
 #, php-format
 msgid "Module %s is not installed in environment %s !"
 msgstr "Le module %s n'est pas installé dans l'environnement %s !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:100
+#: ../src/KmbModuleManager/Controller/ModuleController.php:121
 #, php-format
-msgid "An error occured when removing module : %s"
-msgstr "Une erreur est survenue lors de la suppression du module : %s"
+msgid "An error occured when removing module %s : %s"
+msgstr "Une erreur est survenue lors de la suppression du module %s : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:104
+#: ../src/KmbModuleManager/Controller/ModuleController.php:125
 #, php-format
 msgid "Module %s has been successfully remove !"
 msgstr "Le module %s a bien été supprimé !"
 
-#: ../src/KmbModuleManager/Controller/ModulesController.php:65
+#: ../src/KmbModuleManager/Controller/ModulesController.php:67
 #, php-format
 msgid ""
 "Module %s cannot be installed in environment %s (already installed or "
@@ -123,10 +123,14 @@ msgstr ""
 msgid "Do you want to proceed ?"
 msgstr "Êtes-vous sûr de vouloir continuer ?"
 
-#: ../view/kmb-module-manager/modules/panel.heading.phtml:4
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:2
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:11
 msgid "Add a module"
 msgstr "Ajouter un module"
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:4
+msgid "Add"
+msgstr "Ajouter"
 
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:16
 msgid "You can add any released version or any branch of a module."
@@ -141,6 +145,9 @@ msgstr "Module"
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:20
 msgid "Choose a module..."
 msgstr "Choisir un module..."
+
+#~ msgid "Unknown module %s !"
+#~ msgstr "Module %s inconnu !"
 
 #~ msgid "Update this module"
 #~ msgstr "Mettre à jour ce module"

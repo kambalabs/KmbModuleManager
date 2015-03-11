@@ -118,7 +118,7 @@ class ModuleController extends AbstractActionController implements Authenticated
         try {
             $moduleService->removeFromEnvironment($environment, $module);
         } catch (\Exception $e) {
-            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module : %s'), $moduleName, $e->getMessage()));
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module %s : %s'), $moduleName, $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => [ 'back' => $this->params()->fromQuery('back') ]], true);
         }
 
