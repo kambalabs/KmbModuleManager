@@ -22,7 +22,7 @@ $(window).load(function () {
         var select = $("select#version");
         select.html('');
         $.each(modulesVersions[$("select#module option:selected").val()], function (index, version) {
-            select.append($('<option></option>').html(version));
+            select.append($('<option value="' + version + '"></option>').html(version.replace(/^[0-9.]*-[0-9]*-/, '')));
         });
         select.trigger('chosen:updated');
     });
