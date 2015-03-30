@@ -53,13 +53,13 @@ return [
     'view_helper_config' => [
         'widget' => [
             'puppetModulesPanelHeading' => [
-                'partials' => [
-                    'kmb-module-manager/modules/panel.heading.phtml',
+                [
+                    'template' => 'kmb-module-manager/modules/panel.heading.phtml',
                 ],
             ],
             'puppetModuleShowInfoBar' => [
-                'partials' => [
-                    'kmb-module-manager/module/info.bar.phtml',
+                [
+                    'template' => 'kmb-module-manager/module/info.bar.phtml',
                 ],
             ],
         ],
