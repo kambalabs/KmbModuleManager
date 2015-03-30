@@ -39,17 +39,6 @@ class ModuleControllerTest extends AbstractHttpControllerTestCase
     }
 
     /** @test */
-    public function canGetVersions()
-    {
-        $this->dispatch('/env/1/module-manager/module/ntp/versions');
-
-        $this->assertResponseStatusCode(200);
-        $this->assertControllerName('KmbModuleManager\Controller\Module');
-        $this->assertActionName('versions');
-        $this->assertEquals(['1.0', '0.9', '0.8'], Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY));
-    }
-
-    /** @test */
     public function canUpdateModule()
     {
         $this->dispatch('/env/1/module-manager/module/apache/update', 'POST', ['version' => '2.4.2']);
