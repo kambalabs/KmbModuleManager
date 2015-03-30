@@ -50,6 +50,11 @@ return [
             'KmbModuleManager\Controller\Module' => 'KmbModuleManager\Controller\ModuleController',
         ],
     ],
+    'service_manager' => [
+        'factories' => [
+            'KmbModuleManager\Widget\PuppetModuleInfoBarWidgetAction' => 'KmbModuleManager\Widget\PuppetModuleInfoBarWidgetActionFactory',
+        ],
+    ],
     'view_helper_config' => [
         'widget' => [
             'puppetModulesPanelHeading' => [
@@ -59,6 +64,7 @@ return [
             ],
             'puppetModuleShowInfoBar' => [
                 [
+                    'action' => 'KmbModuleManager\Widget\PuppetModuleInfoBarWidgetAction',
                     'template' => 'kmb-module-manager/module/info.bar.phtml',
                 ],
             ],
