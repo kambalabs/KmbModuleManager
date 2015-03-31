@@ -4,7 +4,6 @@ namespace KmbModuleManagerTest\Controller;
 use KmbDomain\Model\Environment;
 use KmbModuleManagerTest\Bootstrap;
 use KmbPmProxy\Model\PuppetModule;
-use Zend\Json\Json;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 class ModuleControllerTest extends AbstractHttpControllerTestCase

@@ -11,10 +11,16 @@ $(window).load(function () {
         success: function (data) {
             modulesVersions = data;
             var select = $("select#module");
-            for (module in modulesVersions) {
+            for (var module in modulesVersions) {
                 select.append($('<option></option>').html(module));
             }
             select.trigger('chosen:updated');
+            $('#btn-add-module').removeClass('disabled');
+        },
+        complete: function () {
+            var icon = $('#btn-add-module > span:first-child');
+            icon.removeClass('glyphicon-hourglass');
+            icon.addClass('glyphicon-plus-sign');
         }
     });
 
