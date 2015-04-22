@@ -21,7 +21,7 @@ class ModulesControllerTest extends AbstractHttpControllerTestCase
 
         $puppetModuleService = $this->getMock('KmbPmProxy\Service\PuppetModuleInterface');
         $ntpModule = new PuppetModule('ntp');
-        $ntpModule->setAvailableVersions(['1.0', '0.9', '0.8']);
+        $ntpModule->setAvailableVersions(['1.0', '0.9', '0.8', '0.0.0-23-deadbee-unstable']);
         $apacheModule = new PuppetModule('apache');
         $apacheModule->setAvailableVersions(['2.4.2', '2.3.9', '2.2.10']);
         $puppetModuleService->expects($this->any())
@@ -45,14 +45,15 @@ class ModulesControllerTest extends AbstractHttpControllerTestCase
         $this->assertActionName('installable');
         $this->assertEquals([
             'ntp' => [
-                '1.0',
-                '0.9',
-                '0.8',
+                '1.0' => '1.0',
+                '0.9' => '0.9',
+                '0.8' => '0.8',
+                '0.0.0-23-deadbee-unstable' => 'unstable',
             ],
             'apache' => [
-                '2.4.2',
-                '2.3.9',
-                '2.2.10'
+                '2.4.2' => '2.4.2',
+                '2.3.9' => '2.3.9',
+                '2.2.10' => '2.2.10',
             ]
         ], Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY));
     }

@@ -27,8 +27,8 @@ $(window).load(function () {
     $(document).on('change', 'select#module', function() {
         var select = $("select#version");
         select.html('');
-        $.each(modulesVersions[$("select#module option:selected").val()], function (index, version) {
-            select.append($('<option value="' + version + '"></option>').html(version.replace(/^[0-9.]*-[0-9]*-/, '')));
+        $.each(modulesVersions[$("select#module option:selected").val()], function (version, formattedVersion) {
+            select.append($('<option value="' + version + '"></option>').html(formattedVersion));
         });
         select.trigger('chosen:updated');
     });
