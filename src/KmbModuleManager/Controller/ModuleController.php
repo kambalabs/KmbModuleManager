@@ -22,6 +22,7 @@ namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use KmbDomain\Model\EnvironmentInterface;
+use KmbPmProxy\Exception\PuppetModuleException;
 use KmbPmProxy\Model\PuppetModule;
 use KmbPmProxy\Service;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -60,8 +61,11 @@ class ModuleController extends AbstractActionController implements Authenticated
 
         try {
             $moduleService->upgradeModuleInEnvironment($environment, $module, $version, $force);
+        } catch (PuppetModuleException $e) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module upgrade' for module %s %s returned the following error on the puppet master : %s"), $moduleName, $version, $e->getMessage()));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         } catch (\Exception $e) {
-            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when updating module %s %s : %s'), $moduleName, $version, $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         }
 
@@ -91,11 +95,15 @@ class ModuleController extends AbstractActionController implements Authenticated
         /** @var PuppetModule $module */
         $module = $modules[$moduleName];
 
+        $back = $this->params()->fromQuery('back');
         try {
             $moduleService->removeFromEnvironment($environment, $module);
+        } catch (PuppetModuleException $e) {
+            $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module uninstall' for module %s returned the following error on the puppet master : %s"), $moduleName, $e->getMessage()));
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module %s : %s'), $moduleName, $e->getMessage()));
-            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $this->params()->fromQuery('back')]], true);
+            return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         }
 
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s has been successfully remove !'), $moduleName));
