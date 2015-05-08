@@ -28,7 +28,7 @@ class ModulesControllerTest extends AbstractHttpControllerTestCase
             ->method('getAllInstallableByEnvironment')
             ->will($this->returnValue([$ntpModule, $apacheModule]));
         $serviceManager->setService('pmProxyPuppetModuleService', $puppetModuleService);
-        $environmentRepository = $this->getMock('KmbDomain\Model\EnvironmentRepositoryInterface');
+        $environmentRepository = $this->getMock('KmbDomain\Service\EnvironmentRepositoryInterface');
         $environmentRepository->expects($this->any())
             ->method('getById')
             ->will($this->returnValue(new Environment()));
