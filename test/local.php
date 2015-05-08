@@ -13,4 +13,7 @@ return [
         'driver' => 'Pdo',
         'dsn' => 'sqlite::memory:'
     ],
+    'forge' => [
+        'base_uri' => 'http://localhost:3002',
+    ]
 ];

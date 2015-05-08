@@ -33,6 +33,19 @@ return [
                     ],
                 ],
             ],
+            'api-module-manager-hook' => [
+                'type' => 'Segment',
+                'options' => [
+                    'route' => '/api/module-manager/module/:name/hook',
+                    'constraints' => [
+                        'name' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ],
+                    'defaults' => [
+                        'controller' => 'KmbModuleManager\Controller\ModuleHook',
+                        'envId' => '0',
+                    ],
+                ],
+            ],
         ],
     ],
     'translator' => [
@@ -48,11 +61,21 @@ return [
         'invokables' => [
             'KmbModuleManager\Controller\Modules' => 'KmbModuleManager\Controller\ModulesController',
             'KmbModuleManager\Controller\Module' => 'KmbModuleManager\Controller\ModuleController',
+            'KmbModuleManager\Controller\ModuleHook' => 'KmbModuleManager\Controller\ModuleHookController',
         ],
     ],
     'service_manager' => [
+        'invokables' => [
+            'KmbModuleManager\Http\Client' => 'Zend\Http\Client',
+        ],
         'factories' => [
+            'KmbModuleManager\Service\ForgeClient' => 'KmbModuleManager\Service\ForgeClientFactory',
+            'KmbModuleManager\Service\Forge' => 'KmbModuleManager\Service\ForgeFactory',
+            'KmbModuleManager\Options\ModuleOptions' => 'KmbModuleManager\Options\ModuleOptionsFactory',
             'KmbModuleManager\Widget\PuppetModuleInfoBarWidgetAction' => 'KmbModuleManager\Widget\PuppetModuleInfoBarWidgetActionFactory',
+        ],
+        'abstract_factories' => [
+            'Zend\Log\LoggerAbstractServiceFactory',
         ],
     ],
     'view_helper_config' => [
