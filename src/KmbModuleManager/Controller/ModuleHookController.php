@@ -20,7 +20,15 @@
  */
 namespace KmbModuleManager\Controller;
 
+use KmbCache\Service\AvailablePuppetModuleCacheManager;
+use KmbCache\Service\InstallablePuppetModuleCacheManager;
+use KmbCache\Service\InstalledPuppetModuleCacheManager;
+use KmbDomain\Service\EnvironmentRepositoryInterface;
 use KmbModuleManager\Service\ForgeInterface;
+use KmbPmProxy\Exception\PuppetModuleException;
+use KmbPmProxy\Model;
+use KmbPmProxy\Service;
+use Zend\Log\Logger;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
@@ -31,6 +39,60 @@ class ModuleHookController extends AbstractRestfulController
         /** @var ForgeInterface $forgeService */
         $forgeService = $this->getServiceLocator()->get('KmbModuleManager\Service\Forge');
         $forgeService->postHook($data);
+
+        /** @var AvailablePuppetModuleCacheManager $availableModulesCacheManager */
+        $availableModulesCacheManager = $this->serviceLocator->get('KmbCache\Service\AvailablePuppetModuleCacheManager');
+        $availableModulesCacheManager->forceRefreshCache();
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->serviceLocator->get('pmProxyPuppetModuleService');
+
+        /** @var Logger $logger */
+        $logger = $this->serviceLocator->get('Logger');
+
+        if (isset($data['object_kind']) && $data['object_kind'] == 'push') {
+            $moduleName = $this->params()->fromRoute('name');
+            $branch = str_replace('refs/heads/', '', isset($data['ref']) ? $data['ref'] : '');
+
+            /** @var EnvironmentRepositoryInterface $environmentRepository */
+            $environmentRepository = $this->serviceLocator->get('EnvironmentRepository');
+            $environments = $environmentRepository->getAllWhereModuleIsAutoUpdated($moduleName, $branch);
+
+            if (!empty($environments)) {
+                /** @var InstalledPuppetModuleCacheManager $installedPuppetModuleCacheManager */
+                $installedPuppetModuleCacheManager = $this->serviceLocator->get('KmbCache\Service\InstalledPuppetModuleCacheManager');
+                /** @var InstallablePuppetModuleCacheManager $installablePuppetModuleCacheManager */
+                $installablePuppetModuleCacheManager = $this->serviceLocator->get('KmbCache\Service\InstalledPuppetModuleCacheManager');
+                foreach ($environments as $environment) {
+                    /** @var Model\PuppetModule[] $modules */
+                    $modules = $moduleService->getAllInstallableByEnvironment($environment);
+                    if (!array_key_exists($moduleName, $modules)) {
+                        $logger->err("Module $moduleName cannot be installed in environment " . $environment->getNormalizedName() . " (already installed or unknown module) !");
+                        continue;
+                    }
+                    /** @var Model\PuppetModule $module */
+                    $module = $modules[$moduleName];
+                    $version = $module->getAvailableVersionMatchingBranch($branch);
+                    if (is_null($version)) {
+                        $logger->err("Branch $branch is not available for module $moduleName !");
+                        continue;
+                    }
+
+                    try {
+                        $moduleService->upgradeModuleInEnvironment($environment, $module, $version, true);
+                    } catch (PuppetModuleException $e) {
+                        $logger->err("The command 'puppet module install' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
+                        continue;
+                    } catch (\Exception $e) {
+                        $logger->err("An error occured when installing module $moduleName $version : " . $e->getMessage());
+                        continue;
+                    }
+                    $installablePuppetModuleCacheManager->forceRefreshCache($environment);
+                    $installedPuppetModuleCacheManager->forceRefreshCache($environment);
+                }
+            }
+        }
+
         return new JsonModel();
     }
 }
