@@ -20,9 +20,9 @@
  */
 namespace KmbModuleManager\Controller;
 
-use KmbCache\Service\AvailablePuppetModuleCacheManager;
 use KmbCache\Service\InstallablePuppetModuleCacheManager;
 use KmbCache\Service\InstalledPuppetModuleCacheManager;
+use KmbCache\Service\MainCacheManager;
 use KmbDomain\Service\EnvironmentRepositoryInterface;
 use KmbModuleManager\Service\ForgeInterface;
 use KmbPmProxy\Exception\PuppetModuleException;
@@ -40,8 +40,9 @@ class ModuleHookController extends AbstractRestfulController
         $forgeService = $this->getServiceLocator()->get('KmbModuleManager\Service\Forge');
         $forgeService->postHook($data);
 
-        /** @var AvailablePuppetModuleCacheManager $availableModulesCacheManager */
-        $availableModulesCacheManager = $this->serviceLocator->get('KmbCache\Service\AvailablePuppetModuleCacheManager');
+        /** @var MainCacheManager $mainCacheManager */
+        $mainCacheManager = $this->serviceLocator->get('KmbCache\Service\MainCacheManager');
+        $availableModulesCacheManager = $mainCacheManager->getCacheManager('availableModules');
         $availableModulesCacheManager->forceRefreshCache();
 
         /** @var Service\PuppetModule $moduleService */
@@ -60,9 +61,9 @@ class ModuleHookController extends AbstractRestfulController
 
             if (!empty($environments)) {
                 /** @var InstalledPuppetModuleCacheManager $installedPuppetModuleCacheManager */
-                $installedPuppetModuleCacheManager = $this->serviceLocator->get('KmbCache\Service\InstalledPuppetModuleCacheManager');
+                $installedPuppetModuleCacheManager = $mainCacheManager->getCacheManager('installedModules');
                 /** @var InstallablePuppetModuleCacheManager $installablePuppetModuleCacheManager */
-                $installablePuppetModuleCacheManager = $this->serviceLocator->get('KmbCache\Service\InstalledPuppetModuleCacheManager');
+                $installablePuppetModuleCacheManager = $mainCacheManager->getCacheManager('installableModules');
                 foreach ($environments as $environment) {
                     /** @var Model\PuppetModule[] $modules */
                     $modules = $moduleService->getAllInstallableByEnvironment($environment);
