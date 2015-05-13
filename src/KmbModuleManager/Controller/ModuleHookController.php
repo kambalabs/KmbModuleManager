@@ -69,13 +69,14 @@ class ModuleHookController extends AbstractRestfulController
                 $installablePuppetModuleCacheManager = $mainCacheManager->getCacheManager('installableModules');
                 foreach ($environments as $environment) {
                     /** @var Model\PuppetModule[] $modules */
-                    $modules = $moduleService->getAllInstallableByEnvironment($environment);
+                    $modules = $moduleService->getAllInstalledByEnvironment($environment);
                     if (!array_key_exists($moduleName, $modules)) {
-                        $logger->err("Module $moduleName cannot be installed in environment " . $environment->getNormalizedName() . " (already installed or unknown module) !");
+                        $logger->err("Module $moduleName is unknown or not installed in " . $environment->getNormalizedName() . " !");
                         continue;
                     }
                     /** @var Model\PuppetModule $module */
-                    $module = $modules[$moduleName];
+                    $moduleList = $moduleService->getAllAvailable();
+                    $module = $moduleList[$moduleName];
                     $version = $module->getAvailableVersionMatchingBranch($branch);
                     if (is_null($version)) {
                         $logger->err("Branch $branch is not available for module $moduleName !");
@@ -86,7 +87,7 @@ class ModuleHookController extends AbstractRestfulController
                         $logger->info("Upgrading module $moduleName to version $version on " . $environment->getNormalizedName());
                         $moduleService->upgradeModuleInEnvironment($environment, $module, $version, true);
                     } catch (PuppetModuleException $e) {
-                        $logger->err("The command 'puppet module install' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
+                        $logger->err("The command 'puppet module upgrade' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
                         continue;
                     } catch (\Exception $e) {
                         $logger->err("An error occured when installing module $moduleName $version : " . $e->getMessage());
