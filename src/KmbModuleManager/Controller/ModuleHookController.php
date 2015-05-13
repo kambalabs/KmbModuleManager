@@ -80,6 +80,7 @@ class ModuleHookController extends AbstractRestfulController
                     }
 
                     try {
+                        $logger->info("Upgrading module $moduleName to version $version on " . $environment->getNormalizedName());
                         $moduleService->upgradeModuleInEnvironment($environment, $module, $version, true);
                     } catch (PuppetModuleException $e) {
                         $logger->err("The command 'puppet module install' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
@@ -88,7 +89,9 @@ class ModuleHookController extends AbstractRestfulController
                         $logger->err("An error occured when installing module $moduleName $version : " . $e->getMessage());
                         continue;
                     }
+                    $logger->info("Refreshing installable modules cache on " . $environment->getNormalizedName());
                     $installablePuppetModuleCacheManager->forceRefreshCache($environment);
+                    $logger->info("Refreshing installed modules cache on " . $environment->getNormalizedName());
                     $installedPuppetModuleCacheManager->forceRefreshCache($environment);
                 }
             }
