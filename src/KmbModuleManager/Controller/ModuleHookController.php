@@ -51,9 +51,10 @@ class ModuleHookController extends AbstractRestfulController
         /** @var Logger $logger */
         $logger = $this->serviceLocator->get('Logger');
 
-        if (isset($data['object_kind']) && $data['object_kind'] == 'push') {
+        $ref = isset($data['ref']) ? $data['ref'] : '';
+        if (strpos($ref, 'refs/heads/') === 0) {
+            $branch = str_replace('refs/heads/', '', $ref);
             $moduleName = $this->params()->fromRoute('name');
-            $branch = str_replace('refs/heads/', '', isset($data['ref']) ? $data['ref'] : '');
             $logger->debug("PUSH event on branch $branch of module $moduleName");
 
             /** @var EnvironmentRepositoryInterface $environmentRepository */
