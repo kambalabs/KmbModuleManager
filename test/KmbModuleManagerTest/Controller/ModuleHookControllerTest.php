@@ -34,7 +34,11 @@ class ModuleHookControllerTest extends AbstractHttpControllerTestCase
             ->will($this->returnValue(new Environment()));
         $serviceManager->setService('EnvironmentRepository', $environmentRepository);
         $serviceManager->setService('KmbModuleManager\Service\Forge', $this->getMock('KmbModuleManager\Service\ForgeInterface'));
-        $serviceManager->setService('KmbCache\Service\AvailablePuppetModuleCacheManager', $this->getMock('KmbCache\Service\AvailablePuppetModuleCacheManager', ['forceRefreshCache']));
+        $mainCacheManager = $this->getMock('KmbCache\Service\MainCacheManager', ['getCacheManager']);
+        $mainCacheManager->expects($this->any())
+            ->method('getCacheManager')
+            ->will($this->returnValue($this->getMock('KmbCache\Service\AbstractCacheManager', ['forceRefreshCache'])));
+        $serviceManager->setService('KmbCache\Service\MainCacheManager', $mainCacheManager);
     }
 
     /** @test */
