@@ -3,8 +3,8 @@
 <div class="col-md-2 info-bar pull-right">
     <div class="yellow"><?php echo $this->translate('auto update') ?></div>
     <div class="btn-group btn-toggle">
-        <a class="btn <?php echo $this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'enable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('YES') ?></a>
-        <a class="btn <?php echo !$this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'disable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('NO') ?></a>
+        <a class="btn <?php echo $this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getBranchNameFromVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'enable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('YES') ?></a>
+        <a class="btn <?php echo !$this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getBranchNameFromVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'disable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('NO') ?></a>
     </div>
 </div>
 <?php endif ?>
