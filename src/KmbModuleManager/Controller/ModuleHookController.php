@@ -96,7 +96,7 @@ class ModuleHookController extends AbstractRestfulController
                     $installedPuppetModuleCacheManager->forceRefreshCache($environment);
                 }
             } else {
-                $logger->debug("Not found environments where module $moduleName is auto updated on branch $branch");
+                $logger->debug("Didn't find environments where module $moduleName is auto updated on branch $branch");
             }
         }
 
