@@ -54,12 +54,14 @@ class ModuleHookController extends AbstractRestfulController
         if (isset($data['object_kind']) && $data['object_kind'] == 'push') {
             $moduleName = $this->params()->fromRoute('name');
             $branch = str_replace('refs/heads/', '', isset($data['ref']) ? $data['ref'] : '');
+            $logger->debug("PUSH event on branch $branch of module $moduleName");
 
             /** @var EnvironmentRepositoryInterface $environmentRepository */
             $environmentRepository = $this->serviceLocator->get('EnvironmentRepository');
             $environments = $environmentRepository->getAllWhereModuleIsAutoUpdated($moduleName, $branch);
 
             if (!empty($environments)) {
+                $logger->debug("Found " . count($environments) . " environments where module $moduleName is auto updated on branch $branch");
                 /** @var InstalledPuppetModuleCacheManager $installedPuppetModuleCacheManager */
                 $installedPuppetModuleCacheManager = $mainCacheManager->getCacheManager('installedModules');
                 /** @var InstallablePuppetModuleCacheManager $installablePuppetModuleCacheManager */
@@ -89,11 +91,11 @@ class ModuleHookController extends AbstractRestfulController
                         $logger->err("An error occured when installing module $moduleName $version : " . $e->getMessage());
                         continue;
                     }
-                    $logger->info("Refreshing installable modules cache on " . $environment->getNormalizedName());
                     $installablePuppetModuleCacheManager->forceRefreshCache($environment);
-                    $logger->info("Refreshing installed modules cache on " . $environment->getNormalizedName());
                     $installedPuppetModuleCacheManager->forceRefreshCache($environment);
                 }
+            } else {
+                $logger->debug("Not found environments where module $moduleName is auto updated on branch $branch");
             }
         }
 
