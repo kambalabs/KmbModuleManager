@@ -30,7 +30,7 @@ class Forge implements ForgeInterface
      */
     public function postHook($data)
     {
-        $this->client->post('/gitlab/hook', $data);
+        $this->client->post('/hook/gitlab', $data);
     }
 
     /**
