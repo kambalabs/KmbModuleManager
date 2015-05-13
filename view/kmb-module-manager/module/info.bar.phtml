@@ -1,4 +1,13 @@
 <?php $this->inlineScript()->prependFile($this->basePath() . '/js/kmb.mmgr.module.js'); ?>
+<?php if ($this->module->isOnBranch()): ?>
+<div class="col-md-2 info-bar pull-right">
+    <div class="yellow"><?php echo $this->translate('auto update') ?></div>
+    <div class="btn-group btn-toggle">
+        <a class="btn <?php echo $this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'enable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('YES') ?></a>
+        <a class="btn <?php echo !$this->environment->isModuleAutoUpdated($this->module->getName(), $this->module->getVersion()) ? 'btn-info active' : 'btn-default' ?>" href="<?php echo $this->url('module-manager-module', ['action' => 'disable-auto-update', 'name' => $this->module->getName()], [], true) ?>"><?php echo $this->translate('NO') ?></a>
+    </div>
+</div>
+<?php endif ?>
 <div class="col-md-2 info-bar pull-right">
     <div class="green">&nbsp;</div>
     <div class="update-btn">
@@ -35,7 +44,7 @@
                             <option value=""></option>
                             <?php if (!empty($this->availableVersions)): ?>
                             <?php foreach ($this->availableVersions as $version): ?>
-                            <option value="<?php echo $version ?>"><?php echo $this->formatModuleVersion($version) ?></option>
+                            <option value="<?php echo $version ?>"<?php if ($version === $this->module->getVersion()): ?> selected="selected"<?php endif ?>><?php echo $this->formatModuleVersion($version) ?></option>
                             <?php endforeach ?>
                             <?php endif ?>
                         </select>
@@ -43,10 +52,10 @@
                     <div class="form-group">
                         <label for="force">
                             <input id="force" type="checkbox" name="force_action" value="1">
-                            <?php echo $this->translate('Force action ') ?>
+                            <?php echo $this->translate('Force update') ?>
                         </label>
+                        <p><?php echo $this->translate('The update of the module will be forced, but the dependencies will not be updated !') ?></p>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate('Cancel') ?></button>

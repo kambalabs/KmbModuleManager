@@ -22,6 +22,7 @@ namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use KmbDomain\Model\EnvironmentInterface;
+use KmbDomain\Service\EnvironmentRepositoryInterface;
 use KmbPmProxy\Exception\PuppetModuleException;
 use KmbPmProxy\Model\PuppetModule;
 use KmbPmProxy\Service;
@@ -82,12 +83,20 @@ class ModulesController extends AbstractActionController implements Authenticate
 
         try {
             $moduleService->installInEnvironment($environment, $module, $version);
+            $module->setVersion($version);
         } catch (PuppetModuleException $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module install' for module %s %s returned the following error on the puppet master : %s"), $moduleName, $version, $e->getMessage()));
             return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
             return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+        }
+
+        if ($module->isOnBranch() && $this->params()->fromPost('autoUpdate')) {
+            /** @var EnvironmentRepositoryInterface $environmentRepository */
+            $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
+            $environment->addAutoUpdatedModule($moduleName, $version);
+            $environmentRepository->update($environment);
         }
 
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s %s has been successfully installed !'), $moduleName, $version));

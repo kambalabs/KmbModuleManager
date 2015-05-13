@@ -36,4 +36,15 @@ $(window).load(function () {
     $('#add-module-form').submit(function() {
         $(".modal :submit").prop('disabled', true);
     });
+
+    $(document).on('change', 'select#version,select#module', function() {
+        if ($('select#version option:selected').text().match(/^\d+(\.\d+)*$/)) {
+            $('#auto-update-zone').hide();
+        } else {
+            $('#auto-update-zone').show();
+        }
+    });
+    $(document).on('change', 'select#module', function() {
+        $('#auto-update').attr('checked', false);
+    });
 });

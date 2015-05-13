@@ -4,6 +4,7 @@ namespace KmbModuleManagerTest\Controller;
 use KmbDomain\Model\Environment;
 use KmbModuleManagerTest\Bootstrap;
 use KmbPmProxy\Model\PuppetModule;
+use Zend\Json\Json;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 class ModuleControllerTest extends AbstractHttpControllerTestCase
@@ -53,5 +54,23 @@ class ModuleControllerTest extends AbstractHttpControllerTestCase
 
         $this->assertResponseStatusCode(302);
         $this->assertRedirectTo('/env/1/puppet/modules');
+    }
+
+    /** @test */
+    public function canEnableAutoUpdate()
+    {
+        $this->dispatch('/env/1/module-manager/module/apache/enable-auto-update');
+
+        $this->assertResponseStatusCode(200);
+        $this->assertEquals(['message' => 'Auto update has been successfully enabled on this module.'], Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY));
+    }
+
+    /** @test */
+    public function canDisableAutoUpdate()
+    {
+        $this->dispatch('/env/1/module-manager/module/apache/disable-auto-update');
+
+        $this->assertResponseStatusCode(200);
+        $this->assertEquals(['message' => 'Auto update has been successfully disabled on this module.'], Json::decode($this->getResponse()->getContent(), Json::TYPE_ARRAY));
     }
 }

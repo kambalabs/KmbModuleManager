@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 09:56+0100\n"
-"PO-Revision-Date: 2015-03-10 09:56+0100\n"
+"POT-Creation-Date: 2015-05-13 11:42+0100\n"
+"PO-Revision-Date: 2015-05-13 11:42+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: en_US\n"
@@ -16,105 +16,160 @@ msgstr ""
 "X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:73
+#: ../src/KmbModuleManager/Controller/ModuleController.php:53
 #, php-format
 msgid "Module %s is unknown or not installed !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:80
-#: ../src/KmbModuleManager/Controller/ModulesController.php:73
+#: ../src/KmbModuleManager/Controller/ModuleController.php:60
+#: ../src/KmbModuleManager/Controller/ModulesController.php:80
 #, php-format
 msgid "Version %s is not available for module %s !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:88
-#: ../src/KmbModuleManager/Controller/ModulesController.php:80
+#: ../src/KmbModuleManager/Controller/ModuleController.php:67
 #, php-format
-msgid "An error occured when installing module %s %s : %s"
+msgid ""
+"The command 'puppet module upgrade' for module %s %s returned the following "
+"error on the puppet master : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:92
-#: ../src/KmbModuleManager/Controller/ModulesController.php:84
+#: ../src/KmbModuleManager/Controller/ModuleController.php:70
+#, php-format
+msgid "An error occured when updating module %s %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:74
+#: ../src/KmbModuleManager/Controller/ModulesController.php:102
 #, php-format
 msgid "Module %s %s has been successfully installed !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:112
+#: ../src/KmbModuleManager/Controller/ModuleController.php:94
 #, php-format
 msgid "Module %s is not installed in environment %s !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:121
+#: ../src/KmbModuleManager/Controller/ModuleController.php:104
 #, php-format
-msgid "An error occured when removing module : %s"
+msgid ""
+"The command 'puppet module uninstall' for module %s returned the following "
+"error on the puppet master : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:125
+#: ../src/KmbModuleManager/Controller/ModuleController.php:107
+#, php-format
+msgid "An error occured when removing module %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:116
 #, php-format
 msgid "Module %s has been successfully remove !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModulesController.php:67
+#: ../src/KmbModuleManager/Controller/ModuleController.php:145
+msgid "Auto update has been successfully enabled on this module."
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:172
+msgid "Auto update has been successfully disabled on this module."
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:74
 #, php-format
 msgid ""
 "Module %s cannot be installed in environment %s (already installed or "
 "unknown module) !"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:5
-#: ../view/kmb-module-manager/module/info.bar.phtml:25
-msgid "Update the module"
+#: ../src/KmbModuleManager/Controller/ModulesController.php:88
+#, php-format
+msgid ""
+"The command 'puppet module install' for module %s %s returned the following "
+"error on the puppet master : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:91
+#, php-format
+msgid "An error occured when installing module %s %s : %s"
+msgstr ""
+
+#: ../view/kmb-module-manager/module/info.bar.phtml:4
+msgid "auto update"
+msgstr ""
+
+#: ../view/kmb-module-manager/module/info.bar.phtml:6
+msgid "YES"
 msgstr ""
 
 #: ../view/kmb-module-manager/module/info.bar.phtml:7
-msgid "Update"
+msgid "NO"
 msgstr ""
 
 #: ../view/kmb-module-manager/module/info.bar.phtml:14
-msgid "Remove the module"
+#: ../view/kmb-module-manager/module/info.bar.phtml:34
+msgid "Update the module"
 msgstr ""
 
 #: ../view/kmb-module-manager/module/info.bar.phtml:16
-#: ../view/kmb-module-manager/module/info.bar.phtml:62
+msgid "Update"
+msgstr ""
+
+#: ../view/kmb-module-manager/module/info.bar.phtml:23
+msgid "Remove the module"
+msgstr ""
+
+#: ../view/kmb-module-manager/module/info.bar.phtml:25
+#: ../view/kmb-module-manager/module/info.bar.phtml:83
 msgid "Remove"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:30
+#: ../view/kmb-module-manager/module/info.bar.phtml:39
 msgid ""
 "You can update the module with any available branch or released version."
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:33
+#: ../view/kmb-module-manager/module/info.bar.phtml:42
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:25
 msgid "Version"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:34
+#: ../view/kmb-module-manager/module/info.bar.phtml:43
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:26
 msgid "Select a version..."
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:40
+#: ../view/kmb-module-manager/module/info.bar.phtml:55
+msgid "Force update"
+msgstr ""
+
+#: ../view/kmb-module-manager/module/info.bar.phtml:57
+msgid ""
+"The update of the module will be forced, but the dependencies will not be "
+"updated !"
+msgstr ""
+
 #: ../view/kmb-module-manager/module/info.bar.phtml:61
-#: ../view/kmb-module-manager/modules/panel.heading.phtml:32
+#: ../view/kmb-module-manager/module/info.bar.phtml:82
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:39
 msgid "Cancel"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:41
-#: ../view/kmb-module-manager/modules/panel.heading.phtml:33
+#: ../view/kmb-module-manager/module/info.bar.phtml:62
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:40
 msgid "Save"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:52
+#: ../view/kmb-module-manager/module/info.bar.phtml:73
 msgid "Confirm Remove"
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:56
+#: ../view/kmb-module-manager/module/info.bar.phtml:77
 #, php-format
 msgid "You are about to remove %s module from %s environment."
 msgstr ""
 
-#: ../view/kmb-module-manager/module/info.bar.phtml:57
+#: ../view/kmb-module-manager/module/info.bar.phtml:78
 msgid "Do you want to proceed ?"
 msgstr ""
 
@@ -137,4 +192,14 @@ msgstr ""
 
 #: ../view/kmb-module-manager/modules/panel.heading.phtml:20
 msgid "Choose a module..."
+msgstr ""
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:33
+msgid "Auto update"
+msgstr ""
+
+#: ../view/kmb-module-manager/modules/panel.heading.phtml:35
+msgid ""
+"The module will be updated automatically at each gitlab push event for this "
+"branch."
 msgstr ""

@@ -22,10 +22,12 @@ namespace KmbModuleManager\Controller;
 
 use KmbAuthentication\Controller\AuthenticatedControllerInterface;
 use KmbDomain\Model\EnvironmentInterface;
+use KmbDomain\Service\EnvironmentRepositoryInterface;
 use KmbPmProxy\Exception\PuppetModuleException;
 use KmbPmProxy\Model\PuppetModule;
 use KmbPmProxy\Service;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 
 class ModuleController extends AbstractActionController implements AuthenticatedControllerInterface
 {
@@ -106,7 +108,67 @@ class ModuleController extends AbstractActionController implements Authenticated
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         }
 
+        /** @var EnvironmentRepositoryInterface $environmentRepository */
+        $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
+        $environment->removeAutoUpdatedModule($moduleName);
+        $environmentRepository->update($environment);
+
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s has been successfully remove !'), $moduleName));
         return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
+    }
+
+    public function enableAutoUpdateAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromRoute('name');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllInstalledByEnvironment($environment);
+        if (!array_key_exists($moduleName, $modules)) {
+            return $this->notFoundAction();
+        }
+        $module = $modules[$moduleName];
+
+        /** @var EnvironmentRepositoryInterface $environmentRepository */
+        $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
+        $environment->addAutoUpdatedModule($module->getName(), $module->getVersion());
+        $environmentRepository->update($environment);
+
+        return new JsonModel(['message' => $this->translate('Auto update has been successfully enabled on this module.')]);
+    }
+
+    public function disableAutoUpdateAction()
+    {
+        /** @var EnvironmentInterface $environment */
+        $environment = $this->getServiceLocator()->get('EnvironmentRepository')->getById($this->params()->fromRoute('envId'));
+        if ($environment == null) {
+            return $this->notFoundAction();
+        }
+
+        /** @var Service\PuppetModule $moduleService */
+        $moduleService = $this->getServiceLocator()->get('pmProxyPuppetModuleService');
+
+        $moduleName = $this->params()->fromRoute('name');
+
+        /** @var PuppetModule[] $modules */
+        $modules = $moduleService->getAllInstalledByEnvironment($environment);
+        if (!array_key_exists($moduleName, $modules)) {
+            return $this->notFoundAction();
+        }
+
+        /** @var EnvironmentRepositoryInterface $environmentRepository */
+        $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
+        $environment->removeAutoUpdatedModule($moduleName);
+        $environmentRepository->update($environment);
+
+        return new JsonModel(['message' => $this->translate('Auto update has been successfully disabled on this module.')]);
     }
 }
