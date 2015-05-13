@@ -95,7 +95,7 @@ class ModulesController extends AbstractActionController implements Authenticate
         if ($module->isOnBranch() && $this->params()->fromPost('autoUpdate')) {
             /** @var EnvironmentRepositoryInterface $environmentRepository */
             $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
-            $environment->addAutoUpdatedModule($moduleName, $version);
+            $environment->addAutoUpdatedModule($module->getName(), $module->getBranchNameFromVersion());
             $environmentRepository->update($environment);
         }
 

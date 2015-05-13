@@ -9,10 +9,10 @@ class ForgeTest extends \PHPUnit_Framework_TestCase
     public function canPostHook()
     {
         $client = $this->getMock('KmbModuleManager\Service\ForgeClientInterface');
-        $client->expects($this->once())->method('post')->with('/gitlab/hook', ['object_kind' => 'push']);
+        $client->expects($this->once())->method('post')->with('/hook/gitlab', ['ref' => 'refs/heads/master']);
         $forgeService = new Forge();
         $forgeService->setClient($client);
 
-        $forgeService->postHook(['object_kind' => 'push']);
+        $forgeService->postHook(['ref' => 'refs/heads/master']);
     }
 }

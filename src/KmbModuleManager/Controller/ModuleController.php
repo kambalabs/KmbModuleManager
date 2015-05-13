@@ -139,7 +139,7 @@ class ModuleController extends AbstractActionController implements Authenticated
 
         /** @var EnvironmentRepositoryInterface $environmentRepository */
         $environmentRepository = $this->getServiceLocator()->get('EnvironmentRepository');
-        $environment->addAutoUpdatedModule($module->getName(), $module->getVersion());
+        $environment->addAutoUpdatedModule($module->getName(), $module->getBranchNameFromVersion());
         $environmentRepository->update($environment);
 
         return new JsonModel(['message' => $this->translate('Auto update has been successfully enabled on this module.')]);

@@ -46,7 +46,7 @@ class ForgeClientTest extends \PHPUnit_Framework_TestCase
             ->method('getBody')
             ->will($this->returnValue('{"message":"Post error"}'));
 
-        $this->forgeClient->put('/gitlab/hook', ['object_kind' => 'push']);
+        $this->forgeClient->put('/gitlab/hook', ['ref' => 'refs/heads/master']);
     }
 
     /** @test */
@@ -56,6 +56,6 @@ class ForgeClientTest extends \PHPUnit_Framework_TestCase
             ->method('isSuccess')
             ->will($this->returnValue(true));
 
-        $this->forgeClient->put('/gitlab/hook', ['object_kind' => 'push']);
+        $this->forgeClient->put('/gitlab/hook', ['ref' => 'refs/heads/master']);
     }
 }
