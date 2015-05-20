@@ -44,7 +44,7 @@
                             <option value=""></option>
                             <?php if (!empty($this->availableVersions)): ?>
                             <?php foreach ($this->availableVersions as $version): ?>
-                            <option value="<?php echo $version ?>"<?php if ($version === $this->module->getVersion()): ?> selected="selected"<?php endif ?>><?php echo $this->formatModuleVersion($version) ?></option>
+                            <option value="<?php echo $version ?>"<?php if ($version === $this->module->getVersion()): ?> selected="selected"<?php endif ?>><?php echo $this->formatModuleVersion($version, true) ?></option>
                             <?php endforeach ?>
                             <?php endif ?>
                         </select>
