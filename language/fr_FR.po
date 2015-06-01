@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-01 19:21+0100\n"
-"PO-Revision-Date: 2015-06-01 19:21+0100\n"
+"POT-Creation-Date: 2015-06-01 19:29+0100\n"
+"PO-Revision-Date: 2015-06-01 19:30+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -40,10 +40,10 @@ msgstr ""
 #, php-format
 msgid ""
 "The command 'puppet module upgrade' for module %s %s on environment %s "
-"returned the following error : %s"
+"returned the following error : <code>%s</code>"
 msgstr ""
 "La commande 'puppet module upgrade' pour le module %s %s sur l'environnement "
-"%s a retourné l'erreur suivante : %s"
+"%s a retourné l'erreur suivante : <code>%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:71
 #, php-format
@@ -52,9 +52,10 @@ msgstr "Une erreur est survenue lors de la mise à jour du module %s %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:72
 #, php-format
-msgid "Failed to update module %s to %s on environment %s : %s"
+msgid "Failed to update module %s to %s on environment %s : <code>%s</code>"
 msgstr ""
-"Échec lors de la mise à jour du module %s vers %s sur l'environnement %s : %s"
+"Échec lors de la mise à jour du module %s vers %s sur l'environnement %s : "
+"<code>%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:76
 #, php-format
@@ -85,10 +86,10 @@ msgstr ""
 #, php-format
 msgid ""
 "The command 'puppet module uninstall' for module %s on environment %s "
-"returned the following error : %s"
+"returned the following error : <code>%s</code>"
 msgstr ""
 "La commande 'puppet module uninstall' pour le module %s sur l'environnement "
-"%s a retourné l'erreur suivante : %s"
+"%s a retourné l'erreur suivante : <code>%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:111
 #, php-format
@@ -97,8 +98,10 @@ msgstr "Une erreur est survenue lors de la suppression du module %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:112
 #, php-format
-msgid "Failed to remove module %s on environment %s : %s"
-msgstr "Échec lors de la suppression du module %s sur l'environnement %s : %s"
+msgid "Failed to remove module %s on environment %s : <code>%s</code>"
+msgstr ""
+"Échec lors de la suppression du module %s sur l'environnement %s : <code>%s</"
+"code>"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:121
 #, php-format
@@ -148,17 +151,19 @@ msgstr ""
 #, php-format
 msgid ""
 "The command 'puppet module upgrade' for auto update module %s %s on "
-"environment %s returned the following error : %s"
+"environment %s returned the following error : <code>%s</code>"
 msgstr ""
 "La commande 'puppet module upgrade' pour la mise à jour automatique du "
-"module %s %s sur l'environnement %s a retourné l'erreur suivante : %s"
+"module %s %s sur l'environnement %s a retourné l'erreur suivante : <code>%s</"
+"code>"
 
 #: ../src/KmbModuleManager/Controller/ModuleHookController.php:99
 #, php-format
-msgid "Failed to auto update module %s to %s on environment %s : %s"
+msgid ""
+"Failed to auto update module %s to %s on environment %s : <code>%s</code>"
 msgstr ""
 "Échec lors de la mise à jour automatique du module %s vers %s sur "
-"l'environnement %s : %s"
+"l'environnement %s : <code>%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:74
 #, php-format
@@ -182,10 +187,10 @@ msgstr ""
 #, php-format
 msgid ""
 "The command 'puppet module install' for module %s %s on environment %s "
-"returned the following error : %s"
+"returned the following error : <code>%s</code>"
 msgstr ""
 "La commande 'puppet module install' pour le module %s %s sur l'environnement "
-"%s a retourné l'erreur suivante : %s"
+"%s a retourné l'erreur suivante : <code>%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:92
 #, php-format
@@ -194,9 +199,10 @@ msgstr "Une erreur est survenue lors de l'installation du module %s %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:93
 #, php-format
-msgid "Failed to install module %s %s on environment %s : %s"
+msgid "Failed to install module %s %s on environment %s : <code>%s</code>"
 msgstr ""
-"Échec lors de l'installation du module %s %s sur l'environnement %s : %s"
+"Échec lors de l'installation du module %s %s sur l'environnement %s : <code>"
+"%s</code>"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:104
 #, php-format

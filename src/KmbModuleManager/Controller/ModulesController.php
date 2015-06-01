@@ -86,11 +86,11 @@ class ModulesController extends AbstractActionController implements Authenticate
             $module->setVersion($version);
         } catch (PuppetModuleException $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module install' for module %s %s returned the following error on the puppet master : %s"), $moduleName, $version, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("The command 'puppet module install' for module %s %s on environment %s returned the following error : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("The command 'puppet module install' for module %s %s on environment %s returned the following error : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when installing module %s %s : %s'), $moduleName, $version, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("Failed to install module %s %s on environment %s : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("Failed to install module %s %s on environment %s : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
         }
 

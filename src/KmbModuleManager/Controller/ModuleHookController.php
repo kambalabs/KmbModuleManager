@@ -92,11 +92,11 @@ class ModuleHookController extends AbstractRestfulController
                         $this->writeLog(sprintf($this->translate("Module %s has been successfully auto updated to %s on environment %s"), $moduleName, $version, $environment->getNormalizedName()), $userName);
                     } catch (PuppetModuleException $e) {
                         $logger->err("The command 'puppet module upgrade' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
-                        $this->writeLog(sprintf($this->translate("The command 'puppet module upgrade' for auto update module %s %s on environment %s returned the following error : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
+                        $this->writeLog(sprintf($this->translate("The command 'puppet module upgrade' for auto update module %s %s on environment %s returned the following error : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
                         continue;
                     } catch (\Exception $e) {
                         $logger->err("An error occured when updating module $moduleName $version : " . $e->getMessage());
-                        $this->writeLog(sprintf($this->translate("Failed to auto update module %s to %s on environment %s : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
+                        $this->writeLog(sprintf($this->translate("Failed to auto update module %s to %s on environment %s : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
                         continue;
                     }
                     $installablePuppetModuleCacheManager->forceRefreshCache($environment);

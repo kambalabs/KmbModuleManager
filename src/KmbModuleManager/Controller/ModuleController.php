@@ -65,11 +65,11 @@ class ModuleController extends AbstractActionController implements Authenticated
             $moduleService->upgradeModuleInEnvironment($environment, $module, $version, $force);
         } catch (PuppetModuleException $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module upgrade' for module %s %s returned the following error on the puppet master : %s"), $moduleName, $version, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("The command 'puppet module upgrade' for module %s %s on environment %s returned the following error : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("The command 'puppet module upgrade' for module %s %s on environment %s returned the following error : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when updating module %s %s : %s'), $moduleName, $version, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("Failed to update module %s to %s on environment %s : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("Failed to update module %s to %s on environment %s : <code>%s</code>"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         }
 
@@ -105,11 +105,11 @@ class ModuleController extends AbstractActionController implements Authenticated
             $moduleService->removeFromEnvironment($environment, $module);
         } catch (PuppetModuleException $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate("The command 'puppet module uninstall' for module %s returned the following error on the puppet master : %s"), $moduleName, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("The command 'puppet module uninstall' for module %s on environment %s returned the following error : %s"), $moduleName, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("The command 'puppet module uninstall' for module %s on environment %s returned the following error : <code>%s</code>"), $moduleName, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         } catch (\Exception $e) {
             $this->flashMessenger()->addErrorMessage(sprintf($this->translate('An error occured when removing module %s : %s'), $moduleName, $e->getMessage()));
-            $this->writeLog(sprintf($this->translate("Failed to remove module %s on environment %s : %s"), $moduleName, $environment->getNormalizedName(), $e->getMessage()));
+            $this->writeLog(sprintf($this->translate("Failed to remove module %s on environment %s : <code>%s</code>"), $moduleName, $environment->getNormalizedName(), $e->getMessage()));
             return $this->redirect()->toRoute('puppet-module', ['controller' => 'modules', 'action' => 'show', 'moduleName' => $moduleName], ['query' => ['back' => $back]], true);
         }
 
