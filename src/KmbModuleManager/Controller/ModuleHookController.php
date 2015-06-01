@@ -36,8 +36,10 @@ class ModuleHookController extends AbstractRestfulController
 {
     public function create($data)
     {
+        $moduleName = $this->params()->fromRoute('name');
+        $ref = isset($data['ref']) ? $data['ref'] : '';
         $userName = isset($data['user_name']) ? $data['user_name'] : '-';
-        $this->writeLog(sprintf($this->translate("Receive Gitlab Hook : %s"), $data['ref']), $userName);
+        $this->writeLog(sprintf($this->translate("Receive Gitlab Hook for module %s : %s"), $moduleName, $ref), $userName);
 
         /** @var ForgeInterface $forgeService */
         $forgeService = $this->getServiceLocator()->get('KmbModuleManager\Service\Forge');
@@ -54,10 +56,8 @@ class ModuleHookController extends AbstractRestfulController
         /** @var Logger $logger */
         $logger = $this->serviceLocator->get('Logger');
 
-        $ref = isset($data['ref']) ? $data['ref'] : '';
         if (strpos($ref, 'refs/heads/') === 0) {
             $branch = str_replace('refs/heads/', '', $ref);
-            $moduleName = $this->params()->fromRoute('name');
             $logger->debug("PUSH event on branch $branch of module $moduleName");
 
             /** @var EnvironmentRepositoryInterface $environmentRepository */

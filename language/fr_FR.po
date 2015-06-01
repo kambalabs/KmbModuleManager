@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-01 18:44+0100\n"
-"PO-Revision-Date: 2015-06-01 18:46+0100\n"
+"POT-Creation-Date: 2015-06-01 19:02+0100\n"
+"PO-Revision-Date: 2015-06-01 19:02+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -135,10 +135,10 @@ msgstr ""
 msgid "Auto update has been successfully disabled on this module."
 msgstr "La mise à jour automatique est dorénavant désactivée sur ce module."
 
-#: ../src/KmbModuleManager/Controller/ModuleHookController.php:40
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:42
 #, php-format
-msgid "Receive Gitlab Hook : %s"
-msgstr "Réception d'un hook Gitlab : %s"
+msgid "Receive Gitlab Hook for module %s : %s"
+msgstr "Réception d'un hook Gitlab pour le module %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:74
 #, php-format
