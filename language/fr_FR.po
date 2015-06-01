@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-13 11:35+0100\n"
-"PO-Revision-Date: 2015-05-13 11:35+0100\n"
+"POT-Creation-Date: 2015-05-28 16:54+0100\n"
+"PO-Revision-Date: 2015-05-28 16:56+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -36,23 +36,46 @@ msgstr ""
 "La commande 'puppet module upgrade' pour le module %s %s a retourné l'erreur "
 "suivante sur le puppet master : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:70
+#: ../src/KmbModuleManager/Controller/ModuleController.php:68
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:95
+#, php-format
+msgid ""
+"The command 'puppet module upgrade' for module %s %s on environment %s "
+"returned the following error : %s"
+msgstr ""
+"La commande 'puppet module upgrade' pour le module %s %s sur l'environnement "
+"%s a retourné l'erreur suivante : %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:71
 #, php-format
 msgid "An error occured when updating module %s %s : %s"
 msgstr "Une erreur est survenue lors de la mise à jour du module %s %s : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:74
+#: ../src/KmbModuleManager/Controller/ModuleController.php:72
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:99
+#, php-format
+msgid "Failed to update module %s to %s on environment %s : %s"
+msgstr ""
+"Échec lors de la mise à jour du module %s vers %s sur l'environnement %s : %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:76
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:92
+#, php-format
+msgid "Module %s has been successfully updated to %s on environment %s"
+msgstr "Le module %s a bien été mis à jour vers %s sur l'environnement %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:77
 #: ../src/KmbModuleManager/Controller/ModulesController.php:102
 #, php-format
 msgid "Module %s %s has been successfully installed !"
 msgstr "Le module %s %s a bien été installé !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:94
+#: ../src/KmbModuleManager/Controller/ModuleController.php:97
 #, php-format
 msgid "Module %s is not installed in environment %s !"
 msgstr "Le module %s n'est pas installé dans l'environnement %s !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:104
+#: ../src/KmbModuleManager/Controller/ModuleController.php:107
 #, php-format
 msgid ""
 "The command 'puppet module uninstall' for module %s returned the following "
@@ -61,23 +84,47 @@ msgstr ""
 "La commande 'puppet module uninstall' pour le module %s a retourné l'erreur "
 "suivante sur le puppet master : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:107
+#: ../src/KmbModuleManager/Controller/ModuleController.php:110
 #, php-format
 msgid "An error occured when removing module %s : %s"
 msgstr "Une erreur est survenue lors de la suppression du module %s : %s"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:116
+#: ../src/KmbModuleManager/Controller/ModuleController.php:119
+#, php-format
+msgid "Remove module %s from environment %s"
+msgstr "Suppression du module %s de l'environnement %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:120
 #, php-format
 msgid "Module %s has been successfully remove !"
 msgstr "Le module %s a bien été supprimé !"
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:145
+#: ../src/KmbModuleManager/Controller/ModuleController.php:149
+#, php-format
+msgid "Enable auto update for module %s on environment %s"
+msgstr ""
+"Activation de la mise à jour automatique pour le module %s sur "
+"l'environnement %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:150
 msgid "Auto update has been successfully enabled on this module."
 msgstr "La mise à jour automatique est dorénavant activée sur ce module."
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:172
+#: ../src/KmbModuleManager/Controller/ModuleController.php:177
+#, php-format
+msgid "Disable auto update for module %s on environment %s"
+msgstr ""
+"Désactivation de la mise à jour automatique pour le module %s sur "
+"l'environnement %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:178
 msgid "Auto update has been successfully disabled on this module."
 msgstr "La mise à jour automatique est dorénavant désactivée sur ce module."
+
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:40
+#, php-format
+msgid "Receive Gitlab Hook : %s"
+msgstr "Réception d'un hook Gitlab : %s"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:74
 #, php-format
@@ -220,6 +267,17 @@ msgid ""
 msgstr ""
 "Le module sera mis à jour automatiquement à chaque push sur gitlab pour "
 "cette branche."
+
+#, fuzzy
+#~ msgid ""
+#~ "The command 'puppet module upgrade' for module %s %s on %s returned the "
+#~ "following error : %s"
+#~ msgstr ""
+#~ "La commande 'puppet module upgrade' pour le module %s %s a retourné "
+#~ "l'erreur suivante sur le puppet master : %s"
+
+#~ msgid "Failed to update module %s to %s on %s : %s"
+#~ msgstr "Échec lors de la mise à jour du module %"
 
 #~ msgid "Info"
 #~ msgstr "Info"

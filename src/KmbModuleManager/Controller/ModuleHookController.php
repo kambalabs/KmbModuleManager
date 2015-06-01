@@ -36,6 +36,9 @@ class ModuleHookController extends AbstractRestfulController
 {
     public function create($data)
     {
+        $userName = isset($data['user_name']) ? $data['user_name'] : '-';
+        $this->writeLog(sprintf($this->translate("Receive Gitlab Hook : %s"), $data['ref']), $userName);
+
         /** @var ForgeInterface $forgeService */
         $forgeService = $this->getServiceLocator()->get('KmbModuleManager\Service\Forge');
         $forgeService->postHook($data);
@@ -86,11 +89,14 @@ class ModuleHookController extends AbstractRestfulController
                     try {
                         $logger->info("Upgrading module $moduleName to version $version on " . $environment->getNormalizedName());
                         $moduleService->upgradeModuleInEnvironment($environment, $module, $version, true);
+                        $this->writeLog(sprintf($this->translate("Module %s has been successfully updated to %s on environment %s"), $moduleName, $version, $environment->getNormalizedName()), $userName);
                     } catch (PuppetModuleException $e) {
                         $logger->err("The command 'puppet module upgrade' for module $moduleName $version returned the following error on the puppet master : " . $e->getMessage());
+                        $this->writeLog(sprintf($this->translate("The command 'puppet module upgrade' for module %s %s on environment %s returned the following error : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
                         continue;
                     } catch (\Exception $e) {
-                        $logger->err("An error occured when installing module $moduleName $version : " . $e->getMessage());
+                        $logger->err("An error occured when updating module $moduleName $version : " . $e->getMessage());
+                        $this->writeLog(sprintf($this->translate("Failed to update module %s to %s on environment %s : %s"), $moduleName, $version, $environment->getNormalizedName(), $e->getMessage()), $userName);
                         continue;
                     }
                     $installablePuppetModuleCacheManager->forceRefreshCache($environment);
