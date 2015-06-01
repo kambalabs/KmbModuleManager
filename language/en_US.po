@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-13 11:42+0100\n"
-"PO-Revision-Date: 2015-05-13 11:42+0100\n"
+"POT-Creation-Date: 2015-06-01 18:46+0100\n"
+"PO-Revision-Date: 2015-06-01 18:46+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: en_US\n"
@@ -34,45 +34,97 @@ msgid ""
 "error on the puppet master : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:70
+#: ../src/KmbModuleManager/Controller/ModuleController.php:68
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:95
+#, php-format
+msgid ""
+"The command 'puppet module upgrade' for module %s %s on environment %s "
+"returned the following error : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:71
 #, php-format
 msgid "An error occured when updating module %s %s : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:74
-#: ../src/KmbModuleManager/Controller/ModulesController.php:102
+#: ../src/KmbModuleManager/Controller/ModuleController.php:72
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:99
+#, php-format
+msgid "Failed to update module %s to %s on environment %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:76
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:92
+#, php-format
+msgid "Module %s has been successfully updated to %s on environment %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:77
+#: ../src/KmbModuleManager/Controller/ModulesController.php:105
 #, php-format
 msgid "Module %s %s has been successfully installed !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:94
+#: ../src/KmbModuleManager/Controller/ModuleController.php:97
 #, php-format
 msgid "Module %s is not installed in environment %s !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:104
+#: ../src/KmbModuleManager/Controller/ModuleController.php:107
 #, php-format
 msgid ""
 "The command 'puppet module uninstall' for module %s returned the following "
 "error on the puppet master : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:107
+#: ../src/KmbModuleManager/Controller/ModuleController.php:108
+#, php-format
+msgid ""
+"The command 'puppet module uninstall' for module %s on environment %s "
+"returned the following error : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:111
 #, php-format
 msgid "An error occured when removing module %s : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:116
+#: ../src/KmbModuleManager/Controller/ModuleController.php:112
+#, php-format
+msgid "Failed to remove module %s on environment %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:121
+#, php-format
+msgid "Remove module %s from environment %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:122
 #, php-format
 msgid "Module %s has been successfully remove !"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:145
+#: ../src/KmbModuleManager/Controller/ModuleController.php:151
+#, php-format
+msgid "Enable auto update for module %s on environment %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:152
 msgid "Auto update has been successfully enabled on this module."
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModuleController.php:172
+#: ../src/KmbModuleManager/Controller/ModuleController.php:179
+#, php-format
+msgid "Disable auto update for module %s on environment %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleController.php:180
 msgid "Auto update has been successfully disabled on this module."
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:40
+#, php-format
+msgid "Receive Gitlab Hook : %s"
 msgstr ""
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:74
@@ -89,9 +141,26 @@ msgid ""
 "error on the puppet master : %s"
 msgstr ""
 
-#: ../src/KmbModuleManager/Controller/ModulesController.php:91
+#: ../src/KmbModuleManager/Controller/ModulesController.php:89
+#, php-format
+msgid ""
+"The command 'puppet module install' for module %s %s on environment %s "
+"returned the following error : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:92
 #, php-format
 msgid "An error occured when installing module %s %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:93
+#, php-format
+msgid "Failed to install module %s %s on environment %s : %s"
+msgstr ""
+
+#: ../src/KmbModuleManager/Controller/ModulesController.php:104
+#, php-format
+msgid "Module %s %s has been successfully installed on environment %s"
 msgstr ""
 
 #: ../view/kmb-module-manager/module/info.bar.phtml:4
