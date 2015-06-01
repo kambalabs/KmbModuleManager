@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kamba\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-01 19:02+0100\n"
-"PO-Revision-Date: 2015-06-01 19:02+0100\n"
+"POT-Creation-Date: 2015-06-01 19:21+0100\n"
+"PO-Revision-Date: 2015-06-01 19:21+0100\n"
 "Last-Translator: Emmanuel Bouton <goten4@gmail.com>\n"
 "Language-Team: Kamba Contibutors <devteam@kamba.org>\n"
 "Language: fr_FR\n"
@@ -37,7 +37,6 @@ msgstr ""
 "suivante sur le puppet master : %s"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:68
-#: ../src/KmbModuleManager/Controller/ModuleHookController.php:95
 #, php-format
 msgid ""
 "The command 'puppet module upgrade' for module %s %s on environment %s "
@@ -52,14 +51,12 @@ msgid "An error occured when updating module %s %s : %s"
 msgstr "Une erreur est survenue lors de la mise à jour du module %s %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:72
-#: ../src/KmbModuleManager/Controller/ModuleHookController.php:99
 #, php-format
 msgid "Failed to update module %s to %s on environment %s : %s"
 msgstr ""
 "Échec lors de la mise à jour du module %s vers %s sur l'environnement %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModuleController.php:76
-#: ../src/KmbModuleManager/Controller/ModuleHookController.php:92
 #, php-format
 msgid "Module %s has been successfully updated to %s on environment %s"
 msgstr "Le module %s a bien été mis à jour vers %s sur l'environnement %s"
@@ -139,6 +136,29 @@ msgstr "La mise à jour automatique est dorénavant désactivée sur ce module."
 #, php-format
 msgid "Receive Gitlab Hook for module %s : %s"
 msgstr "Réception d'un hook Gitlab pour le module %s : %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:92
+#, php-format
+msgid "Module %s has been successfully auto updated to %s on environment %s"
+msgstr ""
+"Le module %s a bien été mis à jour automatiquement vers %s sur "
+"l'environnement %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:95
+#, php-format
+msgid ""
+"The command 'puppet module upgrade' for auto update module %s %s on "
+"environment %s returned the following error : %s"
+msgstr ""
+"La commande 'puppet module upgrade' pour la mise à jour automatique du "
+"module %s %s sur l'environnement %s a retourné l'erreur suivante : %s"
+
+#: ../src/KmbModuleManager/Controller/ModuleHookController.php:99
+#, php-format
+msgid "Failed to auto update module %s to %s on environment %s : %s"
+msgstr ""
+"Échec lors de la mise à jour automatique du module %s vers %s sur "
+"l'environnement %s : %s"
 
 #: ../src/KmbModuleManager/Controller/ModulesController.php:74
 #, php-format
