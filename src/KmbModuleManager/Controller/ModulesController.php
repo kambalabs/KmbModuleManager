@@ -99,6 +99,7 @@ class ModulesController extends AbstractActionController implements Authenticate
             $environmentRepository->update($environment);
         }
 
+        $this->writeLog(sprintf($this->translate("Module %s %s has been successfully installed on environment %s"), $moduleName, $version, $environment->getNormalizedName()));
         $this->flashMessenger()->addSuccessMessage(sprintf($this->translate('Module %s %s has been successfully installed !'), $moduleName, $version));
         return $this->redirect()->toRoute('puppet', ['controller' => 'modules', 'action' => 'index'], [], true);
     }
